@@ -20,7 +20,6 @@ Remember to do your best and have fun!
 - SQLite;
 - TypeScript;
 - Layout FODA!;
-- [Expo](https://docs.expo.io/versions/latest/);
 - TDD;
 - Comentários
 
