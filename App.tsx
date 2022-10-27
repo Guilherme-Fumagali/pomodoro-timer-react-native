@@ -1,20 +1,22 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import Titulo from './src/components/Titulo'
+import Timer from './src/components/Timer'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Titulo/>
       <StatusBar style="auto" />
+      <Titulo />
+      <Timer />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 2,
     backgroundColor: '#d18ac3',
     alignItems: 'center',
     justifyContent: 'center',
