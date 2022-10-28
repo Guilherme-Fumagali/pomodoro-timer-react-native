@@ -1,20 +1,14 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View } from 'react-native'
+import {store} from './src/store/store'
 
 import Titulo from './src/components/Titulo'
 import Timer from './src/components/Timer'
 import Tarefas from './src/components/Tarefas'
 
 export default function App() {
-  const tarefas = [
-    {
-      nome: 'Trabalho de sociologia',
-    },
-    {
-      nome: 'Trabalho de não sei o que o que o que o que o que o que o que o que o que o que',
-    },
-  ]
-
+  const tarefas = store.getState().value
+  
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
