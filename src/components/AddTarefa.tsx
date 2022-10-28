@@ -12,7 +12,8 @@ export default function AddTarefa() {
   const [nomeDaTarefa, setNomeDaTarefa] = React.useState('')
 
   const handlePress = () => {
-    store.dispatch(adicionar(nomeDaTarefa))
+    if(nomeDaTarefa.length)
+      store.dispatch(adicionar(nomeDaTarefa))
     setNomeDaTarefa('')
   }
 

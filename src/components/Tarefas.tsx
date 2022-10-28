@@ -1,9 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { store, setTarefas } from '../store/store'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import DraggableFlatList, {
-  ScaleDecorator,
   ShadowDecorator,
   OpacityDecorator,
 } from 'react-native-draggable-flatlist'
@@ -25,13 +24,16 @@ export default function Tarefas({ tarefas }: any) {
   const renderTarefas = ({ item, drag }: any) => {
     const selecao = tarefaSelecionada === item.id ? true : false
     return (
-      <ScaleDecorator>
-        <OpacityDecorator>
-          <ShadowDecorator>
-            <Tarefa key={item.id} drag={drag} tarefa={item} selecionado={selecao} />
-          </ShadowDecorator>
-        </OpacityDecorator>
-      </ScaleDecorator>
+      <OpacityDecorator>
+        <ShadowDecorator>
+          <Tarefa
+            key={item.id}
+            drag={drag}
+            tarefa={item}
+            selecionado={selecao}
+          />
+        </ShadowDecorator>
+      </OpacityDecorator>
     )
   }
 
@@ -40,6 +42,7 @@ export default function Tarefas({ tarefas }: any) {
       <AddTarefa />
       <GestureHandlerRootView>
         <DraggableFlatList
+          style={styles.flatlist}
           ref={ref}
           data={tarefas}
           keyExtractor={(item: tarefa): string => item.id.toString()}
@@ -50,3 +53,9 @@ export default function Tarefas({ tarefas }: any) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  flatlist: {
+    maxHeight: 400,
+  },
+})
