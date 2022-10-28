@@ -5,56 +5,49 @@ const tarefas: tarefa[] = [
   {
     id: 0,
     nome: 'Trabalho de sociologia',
+    tempo: 0
   },
   {
     id: 1,
     nome: 'Trabalho de não sei o que o que o que o que o que o que o que o que o que o que',
+    tempo:0
   },
   {
     id: 2,
     nome: 'Trabalho de sociologia',
+    tempo:0
   },
   {
     id: 3,
     nome: 'Trabalho de não sei o que o que o que o que o que o que o que o que o que o que',
+    tempo:0
   },
 ]
 
 const tarefasSlice = createSlice({
   name: 'tarefas',
   initialState: {
-    value: tarefas,
+    value: {tarefas: tarefas, selecionado: -1},
   },
   reducers: {
     adicionar: (state, action: PayloadAction<tarefa>) => {
-      state.value.push(action.payload)
+      state.value.tarefas.push(action.payload)
     },
     remover: (state, action: PayloadAction<tarefa>) => {
-      const index = state.value.findIndex(
+      const index = state.value.tarefas.findIndex(
         (element) => element.id === action.payload.id
       )
-      state.value.splice(index, 1)
+      state.value.tarefas.splice(index, 1)
     },
-  },
-})
-export const { adicionar, remover } = tarefasSlice.actions
-
-const selecionarSlice = createSlice({
-  name: 'selecionar',
-  initialState: {
-    value: -1,
-  },
-  reducers: {
     selecionar: (state, action: PayloadAction<number>) => {
-      state.value = action.payload
+      state.value.selecionado = action.payload
     },
-  },
+    addTempo: (state, action: PayloadAction<number>) => {
+      if(state.value.selecionado >= 0)
+        state.value.tarefas[state.value.selecionado].tempo += 1
+    }, 
+   },
 })
-export const { selecionar } = selecionarSlice.actions
+export const { adicionar, remover, selecionar, addTempo } = tarefasSlice.actions
 
-export const store = configureStore({
-  reducer: {
-    tarefas: tarefasSlice.reducer,
-    selecionar: selecionarSlice.reducer
-  }
-})
+export const store = configureStore(tarefasSlice)

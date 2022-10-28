@@ -3,10 +3,17 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { selecionar, remover, store } from '../store/store'
 
 export default function Tarefa({ tarefa, selecionado }: any) {
+  const mostrarTempo = (segundos: number): string => {
+    const minutes = Math.floor(segundos / 60)
+    const seconds = (segundos % 60).toString().padStart(2, '0')
+    return `${minutes}:${seconds}`
+  }
+
   return (
-    <View style={
-      selecionado ? {...styles.tarefa, borderWidth: 4}: styles.tarefa
-      }>
+    <View
+      style={selecionado ? { ...styles.tarefa, borderWidth: 4 } : styles.tarefa}
+    >
+      <Text style={styles.tempo}>{mostrarTempo(tarefa.tempo)}</Text>
       <Text
         style={styles.nome}
         onPress={() => {
@@ -34,14 +41,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-  selecionado: {
-    borderWidth: 3,
-  },
   nome: {
     fontFamily: 'monospace',
     fontSize: 18,
     padding: 5,
-    width: 310,
+    width: 250,
+  },
+  tempo: {
+    fontFamily: 'monospace',
+    fontSize: 18,
+    margin: 5,
   },
   excluir: {
     fontSize: 35,

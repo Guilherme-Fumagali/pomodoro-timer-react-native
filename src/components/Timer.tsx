@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
+import { store, addTempo } from '../store/store'
+
 
 export default function Timer() {
   const [time, setTime] = React.useState(1500)
@@ -16,7 +18,6 @@ export default function Timer() {
     
     return <Text style={styles.time}>{`${minutes}:${seconds}`}</Text>
   }
-
   return (
     <View style={styles.container}>
       <CountdownCircleTimer
@@ -26,6 +27,7 @@ export default function Timer() {
         strokeLinecap={'round'}
         duration={time}
         colors={'#000000'}
+        onUpdate={() => store.dispatch(addTempo(1))}
         onComplete={handleComplete}
       >
         {showTime}

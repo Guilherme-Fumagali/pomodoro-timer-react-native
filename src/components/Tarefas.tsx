@@ -6,16 +6,20 @@ import Tarefa from './Tarefa'
 
 export default function Tarefas({ tarefas }: any) {
   const [tarefaSelecionada, setTarefaSelecionada] = React.useState(
-    store.getState().selecionar.value
+    store.getState().value.selecionado
   )
-  store.subscribe(() => setTarefaSelecionada(store.getState().selecionar.value))
+
+  store.subscribe(() =>
+    setTarefaSelecionada(store.getState().value.selecionado)
+  )
+  
   return (
     <View>
       {tarefas.map((tarefa: any, i: number) => {
-        var selecao = false
+        var selecao = false 
         if (tarefaSelecionada === tarefa.id) selecao = true
 
-        return  <Tarefa key={i} tarefa={tarefa} selecionado={selecao}/>
+        return <Tarefa key={i} tarefa={tarefa} selecionado={selecao} />
       })}
     </View>
   )

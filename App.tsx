@@ -8,8 +8,8 @@ import Timer from './src/components/Timer'
 import Tarefas from './src/components/Tarefas'
 
 export default function App() {
-  const [tarefas, setTarefas] = React.useState(store.getState().tarefas.value)
-  store.subscribe(() => setTarefas(store.getState().tarefas.value))
+  const [tarefas, setTarefas] = React.useState(store.getState().value.tarefas)
+  store.subscribe(() => setTarefas(store.getState().value.tarefas))
 
   return (
     <View style={styles.container}>
