@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { selecionar, remover, store } from '../store/store'
 
-export default function Tarefa({ tarefa, selecionado }: any) {
+export default function Tarefa({ tarefa, selecionado, drag }: any) {
   const mostrarTempo = (segundos: number): string => {
     const hours = Math.floor(segundos / 3600)
     const minutes = Math.floor(segundos / 60).toString().padStart(2, '0')
@@ -16,6 +16,7 @@ export default function Tarefa({ tarefa, selecionado }: any) {
       <Text style={styles.tempo}>{mostrarTempo(tarefa.tempo)}</Text>
       <Text
         style={styles.nome}
+        onLongPress={drag}
         onPress={() => {
           store.dispatch(selecionar(tarefa.id))
         }}

@@ -20,6 +20,9 @@ const tarefasSlice = createSlice({
     value: { tarefas: tarefas, selecionado: -1 },
   },
   reducers: {
+    setTarefas: (state, action: PayloadAction<tarefa[]>) => {
+      state.value.tarefas = action.payload
+    },
     adicionar: (state, action: PayloadAction<string>) => {
       const novaTarefa: tarefa = {
         id: Math.floor(Date.now() * Math.random()), /* Id "aleatório" */
@@ -50,5 +53,5 @@ const tarefasSlice = createSlice({
   },
 })
 
-export const { adicionar, remover, selecionar, addTempo } = tarefasSlice.actions
+export const { adicionar, remover, selecionar, addTempo, setTarefas } = tarefasSlice.actions
 export const store = configureStore(tarefasSlice)
