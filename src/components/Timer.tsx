@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { store, addTempo } from '../store/store'

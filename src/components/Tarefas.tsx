@@ -2,6 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { store } from '../store/store'
 
+import AddTarefa from './AddTarefa'
 import Tarefa from './Tarefa'
 
 export default function Tarefas({ tarefas }: any) {
@@ -12,15 +13,17 @@ export default function Tarefas({ tarefas }: any) {
   store.subscribe(() =>
     setTarefaSelecionada(store.getState().value.selecionado)
   )
-  
-  return (
-    <View>
-      {tarefas.map((tarefa: any, i: number) => {
-        var selecao = false 
-        if (tarefaSelecionada === tarefa.id) selecao = true
 
-        return <Tarefa key={i} tarefa={tarefa} selecionado={selecao} />
-      })}
+  const tarefasView = tarefas.map((tarefa: any, i: number) => {
+    var selecao = false
+    if (tarefaSelecionada === tarefa.id) selecao = true
+    return <Tarefa key={i} tarefa={tarefa} selecionado={selecao} />
+  })
+
+  return (
+    <View style={{ alignItems: 'flex-end' }}>
+      <AddTarefa />
+        <View>{tarefasView}</View>
     </View>
   )
 }

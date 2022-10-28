@@ -4,9 +4,9 @@ import { selecionar, remover, store } from '../store/store'
 
 export default function Tarefa({ tarefa, selecionado }: any) {
   const mostrarTempo = (segundos: number): string => {
-    const minutes = Math.floor(segundos / 60)
-    const seconds = (segundos % 60).toString().padStart(2, '0')
-    return `${minutes}:${seconds}`
+    const hours = Math.floor(segundos / 3600)
+    const minutes = Math.floor(segundos / 60).toString().padStart(2, '0')
+    return `${hours}:${minutes}`
   }
 
   return (
