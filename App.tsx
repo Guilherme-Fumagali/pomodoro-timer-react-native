@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import {store} from './src/store/store'
 
@@ -7,8 +8,9 @@ import Timer from './src/components/Timer'
 import Tarefas from './src/components/Tarefas'
 
 export default function App() {
-  const tarefas = store.getState().value
-  
+  const [tarefas, setTarefas] = React.useState(store.getState().value)
+  store.subscribe(() => setTarefas(store.getState().value))
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
