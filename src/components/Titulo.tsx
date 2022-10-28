@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontSize: 26,
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#fff',
+        marginBottom: 20
     }
 })
