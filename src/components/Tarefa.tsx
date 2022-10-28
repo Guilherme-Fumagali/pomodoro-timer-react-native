@@ -1,11 +1,20 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { remover, store } from '../store/store'
+import { selecionar, remover, store } from '../store/store'
 
-export default function Tarefa({ tarefa }: any) {
+export default function Tarefa({ tarefa, selecionado }: any) {
   return (
-    <View style={styles.tarefa}>
-      <Text style={styles.nome}>{tarefa.nome}</Text>
+    <View style={
+      selecionado ? {...styles.tarefa, borderWidth: 4}: styles.tarefa
+      }>
+      <Text
+        style={styles.nome}
+        onPress={() => {
+          store.dispatch(selecionar(tarefa.id))
+        }}
+      >
+        {tarefa.nome}
+      </Text>
       <TouchableOpacity onPress={() => store.dispatch(remover(tarefa))}>
         <Text style={styles.excluir}>X</Text>
       </TouchableOpacity>
@@ -25,6 +34,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
+  selecionado: {
+    borderWidth: 3,
+  },
   nome: {
     fontFamily: 'monospace',
     fontSize: 18,
@@ -33,6 +45,6 @@ const styles = StyleSheet.create({
   },
   excluir: {
     fontSize: 35,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 })

@@ -39,4 +39,22 @@ const tarefasSlice = createSlice({
 })
 export const { adicionar, remover } = tarefasSlice.actions
 
-export const store = configureStore(tarefasSlice)
+const selecionarSlice = createSlice({
+  name: 'selecionar',
+  initialState: {
+    value: -1,
+  },
+  reducers: {
+    selecionar: (state, action: PayloadAction<number>) => {
+      state.value = action.payload
+    },
+  },
+})
+export const { selecionar } = selecionarSlice.actions
+
+export const store = configureStore({
+  reducer: {
+    tarefas: tarefasSlice.reducer,
+    selecionar: selecionarSlice.reducer
+  }
+})
