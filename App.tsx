@@ -1,9 +1,9 @@
-import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { store, adicionar } from './src/store/store'
-import axios from 'axios'
+import api from './src/service/api'
 
+import { StatusBar } from 'expo-status-bar'
 import Titulo from './src/components/Titulo'
 import PomodoroTimer from './src/components/PomodoroTimer'
 import Tarefas from './src/components/Tarefas'
@@ -15,8 +15,8 @@ export default function App() {
   /* Exemplo de uso com API */
   React.useEffect(() => {
     const fetchTarefas = async () => {
-      const { data } = await axios.get(
-        'https://jsonplaceholder.cypress.io/todos?_limit=3'
+      const { data } = await api.get(
+        '/todos?_limit=3'
       )
       data.map((element: any) => store.dispatch(adicionar(element.title)))
     }

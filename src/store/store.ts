@@ -1,15 +1,16 @@
 import { tarefa } from '../types'
 import { createSlice, configureStore, PayloadAction } from '@reduxjs/toolkit'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' 
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { persistReducer, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
+
 
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage,
+  storage: AsyncStorage
 }
 
 const tarefas: tarefa[] = []
-
 const tarefasSlice = createSlice({
   name: 'tarefas',
   initialState: {
@@ -50,4 +51,12 @@ const tarefasSlice = createSlice({
 })
 
 export const { adicionar, remover, selecionar, addTempo, setTarefas } = tarefasSlice.actions
-export const store = configureStore(tarefasSlice)
+
+const persistedReducer = persistReducer(persistConfig, tarefasSlice.reducer)
+export const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: [thunk]
+});
+
+export const persistor = persistStore(store)

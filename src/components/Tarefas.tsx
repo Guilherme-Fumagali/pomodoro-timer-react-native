@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { store, setTarefas } from '../store/store'
+import { store, setTarefas, persistor } from '../store/store'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import DraggableFlatList, {
   ShadowDecorator,
   OpacityDecorator,
 } from 'react-native-draggable-flatlist'
+import { PersistGate  } from 'redux-persist/integration/react'
 
 import AddTarefa from './AddTarefa'
 import Tarefa from './Tarefa'
@@ -41,6 +42,7 @@ export default function Tarefas({ tarefas }: any) {
     <View style={{ alignItems: 'flex-end' }}>
       <AddTarefa />
       <GestureHandlerRootView>
+        <PersistGate loading={null} persistor={persistor}>
         <DraggableFlatList
           style={styles.flatlist}
           ref={ref}
@@ -49,6 +51,7 @@ export default function Tarefas({ tarefas }: any) {
           onDragEnd={({ data }) => store.dispatch(setTarefas(data))}
           renderItem={renderTarefas}
         />
+        </PersistGate>
       </GestureHandlerRootView>
     </View>
   )
