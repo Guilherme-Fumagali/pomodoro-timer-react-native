@@ -7,7 +7,6 @@ import Animated, {
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated'
-
 import api from './src/service/api'
 
 import { StatusBar } from 'expo-status-bar'
@@ -20,8 +19,10 @@ export default function App() {
   const [tarefas, setTarefas] = React.useState(store.getState().value.tarefas)
   store.subscribe(() => setTarefas(store.getState().value.tarefas))
 
-  /* Exemplo de uso com API */
-  /*  React.useEffect(() => {
+  const ACESSAR_API = false
+
+  /* Exemplo de uso com API durante a renderização do app */
+  React.useEffect(() => {
     const fetchTarefas = async () => {
       const { data } = await api.get(
         '/todos?_limit=3'
@@ -29,8 +30,9 @@ export default function App() {
       data.map((element: any) => store.dispatch(adicionar(element.title)))
     }
     
-    fetchTarefas()
-  }, []) */
+    if(ACESSAR_API)
+      fetchTarefas()
+  }, []) 
 
   const progress = useDerivedValue(() => {
     return withTiming(breakTime ? 1 : 0, { duration: 1000 })

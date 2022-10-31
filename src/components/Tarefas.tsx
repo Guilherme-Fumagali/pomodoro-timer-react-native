@@ -44,7 +44,6 @@ export default function Tarefas({ tarefas }: any) {
       <GestureHandlerRootView>
         <PersistGate loading={null} persistor={persistor}>
         <DraggableFlatList
-          style={styles.flatlist}
           ref={ref}
           data={tarefas}
           keyExtractor={(item: tarefa): string => item.id.toString()}
@@ -59,9 +58,7 @@ export default function Tarefas({ tarefas }: any) {
 
 const styles = StyleSheet.create({
   container: {
+    width: '90%',
     height: '55%',
-  },
-  flatlist: {
-    minWidth: '90%'
   },
 })

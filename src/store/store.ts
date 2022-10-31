@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 
-
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage

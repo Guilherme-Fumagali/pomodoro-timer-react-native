@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  TouchableHighlight,
 } from 'react-native'
 import { selecionar, remover, store } from '../store/store'
 
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderWidth: 1,
-    width: '90%',
+    width: '100%',
     borderColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
