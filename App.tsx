@@ -34,6 +34,7 @@ export default function App() {
       fetchTarefas()
   }, []) 
 
+  /* Funções para efeito suave de mudança de cor */
   const progress = useDerivedValue(() => {
     return withTiming(breakTime ? 1 : 0, { duration: 1000 })
   })
@@ -42,13 +43,13 @@ export default function App() {
     const backgroundColor = interpolateColor(
       progress.value,
       [0, 1],
-      ['#d5c7bc', '#93b7be']
+      ['#d5c7bc', '#CBE8EE']
     )
-
     return {
       backgroundColor,
     }
   })
+  /* ------------------------------------------- */
 
   return (
     <Animated.View style={[styles.container, rStyle]}>

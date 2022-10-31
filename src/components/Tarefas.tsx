@@ -6,7 +6,7 @@ import DraggableFlatList, {
   ShadowDecorator,
   OpacityDecorator,
 } from 'react-native-draggable-flatlist'
-import { PersistGate  } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import AddTarefa from './AddTarefa'
 import Tarefa from './Tarefa'
@@ -43,13 +43,13 @@ export default function Tarefas({ tarefas }: any) {
       <AddTarefa />
       <GestureHandlerRootView>
         <PersistGate loading={null} persistor={persistor}>
-        <DraggableFlatList
-          ref={ref}
-          data={tarefas}
-          keyExtractor={(item: tarefa): string => item.id.toString()}
-          onDragEnd={({ data }) => store.dispatch(setTarefas(data))}
-          renderItem={renderTarefas}
-        />
+          <DraggableFlatList
+            ref={ref}
+            data={tarefas}
+            keyExtractor={(item: tarefa): string => item.id.toString()}
+            onDragEnd={({ data }) => store.dispatch(setTarefas(data))}
+            renderItem={renderTarefas}
+          />
         </PersistGate>
       </GestureHandlerRootView>
     </View>

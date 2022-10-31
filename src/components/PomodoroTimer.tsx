@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { store, addTempoNaTarefaSelecionada } from '../store/store'
 import * as Progress from 'react-native-progress'
+
 import Pomodoro from '../classes/Pomodoro'
 
 export default function PomodoroTimer({ setBreakTime }: any) {
@@ -18,7 +19,7 @@ export default function PomodoroTimer({ setBreakTime }: any) {
   /* -------------------------- */
 
   React.useEffect(() => {
-    setKey((prevKey) => prevKey + 1)
+    setKey((prevKey) => prevKey + 1) //renderiza um novo CountdownCircleTimer com uma nova duração
     if (pomodoro.isBreakTime()) {
       setBreakTime(true)
       setTextInfo('Break time :)')
@@ -37,6 +38,7 @@ export default function PomodoroTimer({ setBreakTime }: any) {
     }
   }
 
+  /* Método de renderizar o tempo na tela */
   const showTime = ({ remainingTime }: any) => {
     const minutes = Math.floor(remainingTime / 60)
     const seconds = (remainingTime % 60).toString().padStart(2, '0')

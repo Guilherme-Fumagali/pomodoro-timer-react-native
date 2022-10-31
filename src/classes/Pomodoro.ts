@@ -1,5 +1,6 @@
-import ArrayCircular from "./ArrayCircular"
+import ArrayCircular from './ArrayCircular'
 
+/* Classe que controla as etapas do método pomodoro */
 export default class Pomodoro {
   private TIMES = {
     focus: 0,
@@ -43,19 +44,16 @@ export default class Pomodoro {
   public avanca_etapa() {
     this.ciclo_atual++
 
-    if(this.break_count == 4){
+    if (this.break_count == 4) {
       this.break_count = 0
       return
     }
-    
-    if(this.isBreakTime())
-      this.break_count++
+    if (this.isBreakTime()) this.break_count++
   }
 
   public isBreakTime() {
     const tempo = this.tempo_etapa_atual()
-    if(tempo == this.TIMES.break || tempo == this.TIMES.long_break)
-      return true
+    if (tempo == this.TIMES.break || tempo == this.TIMES.long_break) return true
     return false
   }
 

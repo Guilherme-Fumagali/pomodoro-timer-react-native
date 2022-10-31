@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { selecionar, remover, store } from '../store/store'
 
 export default function Tarefa({ tarefa, selecionado, drag }: any) {
@@ -20,8 +15,8 @@ export default function Tarefa({ tarefa, selecionado, drag }: any) {
     <View
       style={
         selecionado
-          ? { ...styles.tarefa, borderWidth: 3 }
-          : { ...styles.tarefa, margin: 3 }
+          ? { ...styles.tarefa, borderWidth: 1 }
+          : { ...styles.tarefa, margin: 1 }
       }
     >
       <TouchableOpacity onPress={() => store.dispatch(remover(tarefa))}>
@@ -35,7 +30,11 @@ export default function Tarefa({ tarefa, selecionado, drag }: any) {
       >
         {tarefa.nome}
       </Text>
-      <TouchableOpacity activeOpacity={0} onPressIn={drag} style={styles.moverArea}>
+      <TouchableOpacity
+        activeOpacity={0}
+        onPressIn={drag}
+        style={styles.moverArea}
+      >
         <Text style={styles.tempo}>{mostrarTempo(tarefa.tempo)}</Text>
         <Text style={styles.mover}>⁝⁝</Text>
       </TouchableOpacity>
@@ -48,9 +47,9 @@ const styles = StyleSheet.create({
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderWidth: 1,
+    borderWidth: 0,
     width: '100%',
-    borderColor: 'white',
+    borderColor: '#454545',
     borderRadius: 10,
     alignItems: 'center',
     alignSelf: 'center',
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
   mover: {
     fontSize: 35,
     color: 'rgba(0,0,0,0.3)',
-    paddingRight: 5
+    paddingRight: 5,
   },
   moverArea: {
     flex: 0,
@@ -85,5 +84,5 @@ const styles = StyleSheet.create({
     width: '20%',
     alignItems: 'center',
     alignSelf: 'center',
-  }
+  },
 })

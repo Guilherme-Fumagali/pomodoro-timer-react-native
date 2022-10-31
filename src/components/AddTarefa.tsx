@@ -12,18 +12,24 @@ export default function AddTarefa() {
   const [nomeDaTarefa, setNomeDaTarefa] = React.useState('')
 
   const handlePress = () => {
-    if(nomeDaTarefa.length)
-      store.dispatch(adicionar(nomeDaTarefa))
-    setNomeDaTarefa('')
+    if (nomeDaTarefa.length) store.dispatch(adicionar(nomeDaTarefa))
+    setNomeDaTarefa('') //apaga input digitado
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-      <TextInput style={styles.input} value={nomeDaTarefa} onChangeText={text => {setNomeDaTarefa(text)}} placeholder="Adicionar tarefa" />
-      <TouchableOpacity onPress={handlePress}>
-        <Text style={styles.plus}>+</Text>
-      </TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          value={nomeDaTarefa}
+          onChangeText={(text) => {
+            setNomeDaTarefa(text)
+          }}
+          placeholder="Adicionar tarefa"
+        />
+        <TouchableOpacity onPress={handlePress}>
+          <Text style={styles.plus}>+</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     maxWidth: '55%',
-    borderBottomWidth: 1  
+    borderBottomWidth: 1,
   },
   input: {
     fontFamily: 'monospace',
@@ -52,5 +58,5 @@ const styles = StyleSheet.create({
   plus: {
     fontFamily: 'monospace',
     fontSize: 36,
-  }
+  },
 })
