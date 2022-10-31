@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.15)',
     borderRadius: 20,
     width: '90%',
-    height: '33%',
+    minHeight: '33%',
     alignItems: 'center',
     padding: 8,
   },
@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     color: '#454545',
   },
   touchable: {
-    position: 'relative',
     textAlign: 'center',
     fontFamily: 'monospace',
     fontSize: 28,

@@ -39,7 +39,7 @@ export default function Tarefas({ tarefas }: any) {
   }
 
   return (
-    <View style={{ alignItems: 'flex-end' }}>
+    <View>
       <AddTarefa />
       <GestureHandlerRootView>
         <PersistGate loading={null} persistor={persistor}>

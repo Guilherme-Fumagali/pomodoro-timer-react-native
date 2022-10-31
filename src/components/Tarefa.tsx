@@ -19,7 +19,7 @@ export default function Tarefa({ tarefa, selecionado, drag }: any) {
 
   return (
     <View
-      style={selecionado ? { ...styles.tarefa, borderWidth: 4 } : styles.tarefa}
+      style={selecionado ? { ...styles.tarefa, borderWidth: 4 } : {...styles.tarefa, margin:4}}
     >
       <TouchableOpacity onPress={() => store.dispatch(remover(tarefa))}>
         <Text style={styles.excluir}>X</Text>

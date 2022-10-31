@@ -19,28 +19,35 @@ export default function AddTarefa() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.inputContainer}>
       <TextInput style={styles.input} value={nomeDaTarefa} onChangeText={text => {setNomeDaTarefa(text)}} placeholder="Adicionar tarefa" />
       <TouchableOpacity onPress={handlePress}>
         <Text style={styles.plus}>+</Text>
       </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    minWidth: '90%',
+  },
+
+  inputContainer: {
+    position: 'relative',
+    left: '400%',
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 200,
-    borderBottomWidth: 1,
+    maxWidth: '55%',
+    borderBottomWidth: 1  
   },
   input: {
     fontFamily: 'monospace',
     fontSize: 18,
     paddingLeft: 10,
-    width: 180,
+    width: '90%',
   },
   plus: {
     fontFamily: 'monospace',
