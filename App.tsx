@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import {store} from './src/store/store'
 
 import Titulo from './src/components/Titulo'
-import Timer from './src/components/Timer'
+import PomodoroTimer from './src/components/PomodoroTimer'
 import Tarefas from './src/components/Tarefas'
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Titulo />
-      <Timer />
+      <PomodoroTimer />
       <Tarefas tarefas={tarefas} />
     </View>
   )
