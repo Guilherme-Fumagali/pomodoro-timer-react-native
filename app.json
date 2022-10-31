@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "pomodoro",
-    "slug": "pomodoro",
+    "slug": "pomodoro-timer",
+    "owner": "fumagali",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,16 +19,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fumagali.pomodorotimer"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.fumagali.pomodorotimer"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e6b1b96f-d527-4174-abbf-8f10aed32177"
+      }
     }
   }
 }
