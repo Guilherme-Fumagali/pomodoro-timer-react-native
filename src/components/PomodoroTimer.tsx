@@ -1,41 +1,54 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-import CountDown from 'react-native-countdown-component'
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { store, addTempo } from '../store/store'
 import Pomodoro from '../classes/pomodoro'
 
 export default function PomodoroTimer() {
-  const pomodoro = new Pomodoro(7, 5, 6)
+  //const pomodoro = new Pomodoro(1, 2, 3)
+  const [pomodoro] = React.useState(new Pomodoro(1, 2, 3))
   const [time, setTime] = React.useState(pomodoro.etapa_atual())
+  //let time = pomodoro.etapa_atual()
+  const [key, setKey] = React.useState(20);
   const [isPlaying, setIsPlaying] = React.useState(false)
 
-  React.useEffect(() => {
-    console.log('time atualizou', time)
+  const handleComplete = () => {
+    pomodoro.avanca_etapa()
+    setTime(pomodoro.etapa_atual())
+    console.log('time setado')
+    //time = pomodoro.etapa_atual()
+    //setKey(prevKey => prevKey + 1)
     setIsPlaying(false)
-  }, [time])
-
-  const handleChange = (seconds: number) => {
-    if (seconds === 1) {
-      console.log('entrei aqui')
-      pomodoro.avanca_etapa()
-      setTime(pomodoro.etapa_atual())
-    }
+    return {shouldRepeat: false}
   }
 
+  const showTime = ({ remainingTime }: any) => {
+    const minutes = Math.floor(remainingTime / 60)
+    const seconds = remainingTime % 60 === 0 ? '00' : remainingTime % 60
+
+    return <Text style={styles.time}>{`${minutes}:${seconds}`}</Text>
+  }
+
+  React.useEffect(() => {
+    console.log(`time = ${time}`)
+    setKey(prevKey => prevKey + 1)
+    //console.log(`key = ${key}`)
+  }, [time])   
+ 
   return (
     <View style={styles.container}>
-      <CountDown
-        id={'countDownId'}
-        running={isPlaying}
-        onChange={(seconds) => handleChange(seconds)}
-        until={time}
-        size={20}
-        digitStyle={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
-        separatorStyle={{ color: '#fff' }}
-        showSeparator={true}
-        digitTxtStyle={styles.time}
-        timeToShow={['M', 'S']}
-      />
+      <CountdownCircleTimer
+        key={key}
+        isPlaying={isPlaying}
+        size={200}
+        strokeWidth={10}
+        strokeLinecap={'round'}
+        duration={time}
+        colors={'#000000'}
+        onComplete={handleComplete}
+      >
+        {showTime}
+      </CountdownCircleTimer>
       <TouchableOpacity onPress={() => setIsPlaying((prev) => !prev)}>
         <Text style={styles.touchable}>Iniciar</Text>
       </TouchableOpacity>
