@@ -5,21 +5,17 @@ import { store, addTempo } from '../store/store'
 import Pomodoro from '../classes/pomodoro'
 
 export default function PomodoroTimer() {
-  //const pomodoro = new Pomodoro(1, 2, 3)
   const [pomodoro] = React.useState(new Pomodoro(1, 2, 3))
   const [time, setTime] = React.useState(pomodoro.etapa_atual())
-  //let time = pomodoro.etapa_atual()
-  const [key, setKey] = React.useState(20);
+  const [key, setKey] = React.useState(20)
   const [isPlaying, setIsPlaying] = React.useState(false)
 
-  const handleComplete = () => {
-    pomodoro.avanca_etapa()
-    setTime(pomodoro.etapa_atual())
-    console.log('time setado')
-    //time = pomodoro.etapa_atual()
-    //setKey(prevKey => prevKey + 1)
-    setIsPlaying(false)
-    return {shouldRepeat: false}
+  const handleUpdate = (remainingTime: number) => {
+    if (!remainingTime) {
+      pomodoro.avanca_etapa()
+      setTime(pomodoro.etapa_atual())
+      setIsPlaying(false)
+    }
   }
 
   const showTime = ({ remainingTime }: any) => {
@@ -30,11 +26,9 @@ export default function PomodoroTimer() {
   }
 
   React.useEffect(() => {
-    console.log(`time = ${time}`)
-    setKey(prevKey => prevKey + 1)
-    //console.log(`key = ${key}`)
-  }, [time])   
- 
+    setKey((prevKey) => prevKey + 1)
+  }, [time])
+
   return (
     <View style={styles.container}>
       <CountdownCircleTimer
@@ -45,7 +39,7 @@ export default function PomodoroTimer() {
         strokeLinecap={'round'}
         duration={time}
         colors={'#000000'}
-        onComplete={handleComplete}
+        onUpdate={(remainingTime) => handleUpdate(remainingTime)}
       >
         {showTime}
       </CountdownCircleTimer>
