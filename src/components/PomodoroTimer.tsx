@@ -6,29 +6,28 @@ import Pomodoro from '../classes/pomodoro'
 
 export default function PomodoroTimer() {
   const pomodoro = new Pomodoro(7, 5, 6)
-  const [time, setTime] = React.useState(pomodoro.etapa_atual()) 
-  const [countDownId, setCountDownId] = React.useState(new Date().getTime().toString())
+  const [time, setTime] = React.useState(pomodoro.etapa_atual())
   const [isPlaying, setIsPlaying] = React.useState(false)
 
   React.useEffect(() => {
     console.log('time atualizou', time)
     setIsPlaying(false)
-    const id = new Date().getTime().toString()
-    setCountDownId(id)
-  }, [time])  
+  }, [time])
 
-  const handleComplete = () => {
-    console.log('entrei aqui')
-    pomodoro.avanca_etapa()
-    setTime(pomodoro.etapa_atual())
+  const handleChange = (seconds: number) => {
+    if (seconds === 1) {
+      console.log('entrei aqui')
+      pomodoro.avanca_etapa()
+      setTime(pomodoro.etapa_atual())
+    }
   }
 
   return (
     <View style={styles.container}>
       <CountDown
-        id={countDownId}
+        id={'countDownId'}
         running={isPlaying}
-        onFinish={handleComplete}
+        onChange={(seconds) => handleChange(seconds)}
         until={time}
         size={20}
         digitStyle={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
