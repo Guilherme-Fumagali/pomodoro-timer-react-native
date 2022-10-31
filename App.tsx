@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { store, adicionar } from './src/store/store'
 import Animated, {
   interpolateColor,

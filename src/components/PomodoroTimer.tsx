@@ -1,27 +1,38 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
-import { store, addTempo } from '../store/store'
+import { store, addTempoNaTarefaSelecionada } from '../store/store'
 import * as Progress from 'react-native-progress'
 import Pomodoro from '../classes/Pomodoro'
 
-export default function PomodoroTimer({setBreakTime}: any) {
+export default function PomodoroTimer({ setBreakTime }: any) {
   const [pomodoro] = React.useState(new Pomodoro(2, 3, 4))
-  const [time, setTime] = React.useState(pomodoro.tempo_etapa_atual())
+  const [textInfo, setTextInfo] = React.useState('Mantenha o foco!')
+
+  /* CountdownCircleTimer states */
+  const [duracaoDoTimer, setDuracaoDoTimer] = React.useState(
+    pomodoro.tempo_etapa_atual()
+  )
   const [key, setKey] = React.useState(0)
   const [isPlaying, setIsPlaying] = React.useState(false)
+  /* -------------------------- */
 
   React.useEffect(() => {
     setKey((prevKey) => prevKey + 1)
-    if(pomodoro.isBreakTime()) setBreakTime(true)
-    else setBreakTime(false)
-  }, [time])
+    if (pomodoro.isBreakTime()) {
+      setBreakTime(true)
+      setTextInfo('Break time :)')
+    } else {
+      setBreakTime(false)
+      setTextInfo('Mantenha o foco!')
+    }
+  }, [duracaoDoTimer])
 
   const handleUpdate = (remainingTime: number) => {
-    store.dispatch(addTempo(1))
+    store.dispatch(addTempoNaTarefaSelecionada(1))
     if (!remainingTime) {
       pomodoro.avanca_etapa()
-      setTime(pomodoro.tempo_etapa_atual())
+      setDuracaoDoTimer(pomodoro.tempo_etapa_atual())
       setIsPlaying(false)
     }
   }
@@ -34,26 +45,38 @@ export default function PomodoroTimer({setBreakTime}: any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.progressText}>Progresso</Text>
-      <Progress.Bar
-        progress={pomodoro.getBreakCount() / 4}
-        color={'#454545'}
-        width={200}
-      />
+      <View>
+        <Text style={styles.progressText}>Progresso</Text>
+        <Progress.Bar
+          progress={pomodoro.getBreakCount() / 4}
+          color={'#454545'}
+          width={200}
+        />
+      </View>
+      <Text style={styles.progressText}>{textInfo}</Text>
       <CountdownCircleTimer
         key={key}
         isPlaying={isPlaying}
-        size={200}
-        strokeWidth={10}
-        strokeLinecap={'round'}
-        duration={time}
-        colors={'#000000'}
+        size={150}
+        strokeWidth={2}
+        trailStrokeWidth={0}
+        strokeLinecap={'butt'}
+        duration={duracaoDoTimer}
+        colors={'#454545'}
         onUpdate={(remainingTime) => handleUpdate(remainingTime)}
       >
         {showTime}
       </CountdownCircleTimer>
       <TouchableOpacity onPress={() => setIsPlaying((prev) => !prev)}>
-        <Text style={styles.touchable}>Iniciar</Text>
+        <Text
+          style={
+            isPlaying
+              ? { ...styles.touchable, marginTop: 1 }
+              : { ...styles.touchable, borderWidth: 2 }
+          }
+        >
+          Iniciar
+        </Text>
       </TouchableOpacity>
     </View>
   )
@@ -61,29 +84,37 @@ export default function PomodoroTimer({setBreakTime}: any) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#rgba(0,0,0,0.15)',
+    flex: 0,
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(0,0,0,0.15)',
     borderRadius: 20,
-    width: 350,
+    width: '90%',
+    height: '33%',
     alignItems: 'center',
-    padding: 18,
+    padding: 8,
   },
   time: {
     fontFamily: 'monospace',
     fontSize: 46,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#F1FFFA'
+    color: '#454545',
   },
   touchable: {
+    position: 'relative',
     textAlign: 'center',
     fontFamily: 'monospace',
     fontSize: 28,
     borderWidth: 1,
     borderRadius: 10,
-    marginTop: 10,
-    width: 120,
+    padding: 4,
+    borderColor: '#454545',
+    color: '#454545',
   },
   progressText: {
-    color: '#454545'
-  }
+    textAlign: 'center',
+    fontFamily: 'monospace',
+    color: '#454545',
+    marginBottom: 3,
+  },
 })

@@ -39,7 +39,7 @@ const tarefasSlice = createSlice({
     selecionar: (state, action: PayloadAction<number>) => {
       state.value.selecionado = action.payload
     },
-    addTempo: (state, action: PayloadAction<number>) => {
+    addTempoNaTarefaSelecionada: (state, action: PayloadAction<number>) => {
       if (state.value.selecionado >= 0) {
         const index = state.value.tarefas.findIndex(
           (element) => element.id === state.value.selecionado
@@ -50,7 +50,7 @@ const tarefasSlice = createSlice({
   },
 })
 
-export const { adicionar, remover, selecionar, addTempo, setTarefas } = tarefasSlice.actions
+export const { adicionar, remover, selecionar, addTempoNaTarefaSelecionada, setTarefas } = tarefasSlice.actions
 
 const persistedReducer = persistReducer(persistConfig, tarefasSlice.reducer)
 export const store = configureStore({
