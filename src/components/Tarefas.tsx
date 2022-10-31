@@ -39,7 +39,7 @@ export default function Tarefas({ tarefas }: any) {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <AddTarefa />
       <GestureHandlerRootView>
         <PersistGate loading={null} persistor={persistor}>
@@ -58,7 +58,10 @@ export default function Tarefas({ tarefas }: any) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: '55%',
+  },
   flatlist: {
-    maxHeight: 400,
+    minWidth: '90%'
   },
 })

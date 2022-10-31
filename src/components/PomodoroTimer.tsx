@@ -6,7 +6,7 @@ import * as Progress from 'react-native-progress'
 import Pomodoro from '../classes/Pomodoro'
 
 export default function PomodoroTimer({ setBreakTime }: any) {
-  const [pomodoro] = React.useState(new Pomodoro(2, 3, 4))
+  const [pomodoro] = React.useState(new Pomodoro())
   const [textInfo, setTextInfo] = React.useState('Mantenha o foco!')
 
   /* CountdownCircleTimer states */

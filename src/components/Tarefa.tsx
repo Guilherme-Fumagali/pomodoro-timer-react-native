@@ -19,7 +19,11 @@ export default function Tarefa({ tarefa, selecionado, drag }: any) {
 
   return (
     <View
-      style={selecionado ? { ...styles.tarefa, borderWidth: 4 } : {...styles.tarefa, margin:4}}
+      style={
+        selecionado
+          ? { ...styles.tarefa, borderWidth: 3 }
+          : { ...styles.tarefa, margin: 3 }
+      }
     >
       <TouchableOpacity onPress={() => store.dispatch(remover(tarefa))}>
         <Text style={styles.excluir}>X</Text>
@@ -32,10 +36,10 @@ export default function Tarefa({ tarefa, selecionado, drag }: any) {
       >
         {tarefa.nome}
       </Text>
-      <Text style={styles.tempo}>{mostrarTempo(tarefa.tempo)}</Text>
-      <Text style={styles.mover} onLongPress={drag}>
-        ⁝⁝
-      </Text>
+      <TouchableOpacity activeOpacity={0} onPressIn={drag} style={styles.moverArea}>
+        <Text style={styles.tempo}>{mostrarTempo(tarefa.tempo)}</Text>
+        <Text style={styles.mover}>⁝⁝</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -46,34 +50,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderWidth: 1,
-    width: 350,
+    width: '90%',
     borderColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
+    alignSelf: 'center',
     marginTop: 10,
   },
   nome: {
     fontFamily: 'monospace',
     fontSize: 18,
     fontWeight: 'bold',
-    padding: 5,
-    width: 250,
+    padding: 3,
+    width: '65%',
   },
   tempo: {
     fontFamily: 'monospace',
     fontSize: 18,
-    marginRight: 8,
-    marginLeft: 5
   },
   excluir: {
     fontSize: 30,
     margin: 0,
     marginLeft: 10,
-    fontWeight: '300'
+    fontWeight: '300',
   },
   mover: {
     fontSize: 35,
-    marginRight: 8,
     color: 'rgba(0,0,0,0.3)',
+    paddingRight: 5
   },
+  moverArea: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '20%',
+    alignItems: 'center',
+    alignSelf: 'center',
+  }
 })
