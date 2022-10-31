@@ -2,12 +2,12 @@ import React from 'react'
 import CountDown from 'react-native-countdown-component'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
-export default function Timer({until, handleComplete}:any) {
-    const [isPlaying, setIsPlaying] = React.useState(false)
+export default function Timer({ until, handleComplete }: any) {
+  const [isPlaying, setIsPlaying] = React.useState(false)
 
-    return(
-        <View>
-    <CountDown
+  return (
+    <View>
+      <CountDown
         running={isPlaying}
         onFinish={handleComplete}
         until={until}
@@ -22,23 +22,23 @@ export default function Timer({until, handleComplete}:any) {
         <Text style={styles.touchable}>Iniciar</Text>
       </TouchableOpacity>
     </View>
-    )
+  )
 }
 
 const styles = StyleSheet.create({
-    time: {
-      fontFamily: 'monospace',
-      fontSize: 36,
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    touchable: {
-      textAlign: 'center',
-      fontFamily: 'monospace',
-      fontSize: 28,
-      borderWidth: 1,
-      borderRadius: 10,
-      marginTop: 10,
-      width: 120,
-    },
-  })
+  time: {
+    fontFamily: 'monospace',
+    fontSize: 36,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  touchable: {
+    textAlign: 'center',
+    fontFamily: 'monospace',
+    fontSize: 28,
+    borderWidth: 1,
+    borderRadius: 10,
+    marginTop: 10,
+    width: 120,
+  },
+})

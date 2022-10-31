@@ -2,12 +2,13 @@ import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { store, addTempo } from '../store/store'
-import Pomodoro from '../classes/pomodoro'
+import * as Progress from 'react-native-progress'
+import Pomodoro from '../classes/Pomodoro'
 
 export default function PomodoroTimer() {
-  const [pomodoro] = React.useState(new Pomodoro())
-  const [time, setTime] = React.useState(pomodoro.etapa_atual())
-  const [key, setKey] = React.useState(20)
+  const [pomodoro] = React.useState(new Pomodoro(2, 3, 4))
+  const [time, setTime] = React.useState(pomodoro.tempo_etapa_atual())
+  const [key, setKey] = React.useState(0)
   const [isPlaying, setIsPlaying] = React.useState(false)
 
   React.useEffect(() => {
@@ -18,7 +19,7 @@ export default function PomodoroTimer() {
     store.dispatch(addTempo(1))
     if (!remainingTime) {
       pomodoro.avanca_etapa()
-      setTime(pomodoro.etapa_atual())
+      setTime(pomodoro.tempo_etapa_atual())
       setIsPlaying(false)
     }
   }
@@ -29,8 +30,15 @@ export default function PomodoroTimer() {
     return <Text style={styles.time}>{`${minutes}:${seconds}`}</Text>
   }
 
+  console.log(pomodoro.getBreakCount())
   return (
     <View style={styles.container}>
+      <Text>Progresso</Text>
+      <Progress.Bar
+        progress={pomodoro.getBreakCount() / 4}
+        color={'black'}
+        width={200}
+      />
       <CountdownCircleTimer
         key={key}
         isPlaying={isPlaying}
