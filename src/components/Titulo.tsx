@@ -14,7 +14,12 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontSize: 26,
         fontWeight: 'bold',
-        color: '#fff',
-        marginBottom: 20
+        color: '#454545',
+        borderColor: '#454545',
+        marginBottom: 20,
+        borderTopWidth: 1,
+        paddingTop: 3,
+        borderTopLeftRadius: 100,
+        borderTopRightRadius: 100
     }
 })

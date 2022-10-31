@@ -5,7 +5,7 @@ import { store, addTempo } from '../store/store'
 import * as Progress from 'react-native-progress'
 import Pomodoro from '../classes/Pomodoro'
 
-export default function PomodoroTimer() {
+export default function PomodoroTimer({setBreakTime}: any) {
   const [pomodoro] = React.useState(new Pomodoro(2, 3, 4))
   const [time, setTime] = React.useState(pomodoro.tempo_etapa_atual())
   const [key, setKey] = React.useState(0)
@@ -13,6 +13,8 @@ export default function PomodoroTimer() {
 
   React.useEffect(() => {
     setKey((prevKey) => prevKey + 1)
+    if(pomodoro.isBreakTime()) setBreakTime(true)
+    else setBreakTime(false)
   }, [time])
 
   const handleUpdate = (remainingTime: number) => {
@@ -30,13 +32,12 @@ export default function PomodoroTimer() {
     return <Text style={styles.time}>{`${minutes}:${seconds}`}</Text>
   }
 
-  console.log(pomodoro.getBreakCount())
   return (
     <View style={styles.container}>
-      <Text>Progresso</Text>
+      <Text style={styles.progressText}>Progresso</Text>
       <Progress.Bar
         progress={pomodoro.getBreakCount() / 4}
-        color={'black'}
+        color={'#454545'}
         width={200}
       />
       <CountdownCircleTimer
@@ -68,9 +69,10 @@ const styles = StyleSheet.create({
   },
   time: {
     fontFamily: 'monospace',
-    fontSize: 36,
+    fontSize: 46,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#F1FFFA'
   },
   touchable: {
     textAlign: 'center',
@@ -81,4 +83,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 120,
   },
+  progressText: {
+    color: '#454545'
+  }
 })

@@ -1,6 +1,13 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { store, adicionar } from './src/store/store'
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
+} from 'react-native-reanimated'
+
 import api from './src/service/api'
 
 import { StatusBar } from 'expo-status-bar'
@@ -9,11 +16,12 @@ import PomodoroTimer from './src/components/PomodoroTimer'
 import Tarefas from './src/components/Tarefas'
 
 export default function App() {
+  const [breakTime, setBreakTime] = React.useState(false)
   const [tarefas, setTarefas] = React.useState(store.getState().value.tarefas)
   store.subscribe(() => setTarefas(store.getState().value.tarefas))
 
   /* Exemplo de uso com API */
-  React.useEffect(() => {
+  /*  React.useEffect(() => {
     const fetchTarefas = async () => {
       const { data } = await api.get(
         '/todos?_limit=3'
@@ -22,22 +30,37 @@ export default function App() {
     }
     
     fetchTarefas()
-  }, [])
+  }, []) */
+
+  const progress = useDerivedValue(() => {
+    return withTiming(breakTime ? 1 : 0, { duration: 1000 })
+  })
+
+  const rStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      progress.value,
+      [0, 1],
+      ['#d5c7bc', '#93b7be']
+    )
+
+    return {
+      backgroundColor,
+    }
+  })
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Titulo />
-      <PomodoroTimer />
+    <Animated.View style={[styles.container, rStyle]}>
+      <StatusBar style='auto' />
+      <Titulo/>
+      <PomodoroTimer setBreakTime={setBreakTime} />
       <Tarefas tarefas={tarefas} />
-    </View>
+    </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
-    backgroundColor: '#77bcd1',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

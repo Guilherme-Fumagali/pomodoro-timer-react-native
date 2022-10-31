@@ -36,20 +36,27 @@ export default class Pomodoro {
     ])
   }
 
-  public tempo_etapa_atual(): number {
+  public tempo_etapa_atual() {
     return this.ciclo.getElementAtIndex(this.ciclo_atual)
   }
 
-  public avanca_etapa(): void {
+  public avanca_etapa() {
     this.ciclo_atual++
 
     if(this.break_count == 4){
       this.break_count = 0
       return
     }
+    
+    if(this.isBreakTime())
+      this.break_count++
+  }
+
+  public isBreakTime() {
     const tempo = this.tempo_etapa_atual()
     if(tempo == this.TIMES.break || tempo == this.TIMES.long_break)
-      this.break_count++
+      return true
+    return false
   }
 
   public getBreakCount() {
