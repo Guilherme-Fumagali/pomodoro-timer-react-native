@@ -5,12 +5,17 @@ import { store, addTempo } from '../store/store'
 import Pomodoro from '../classes/pomodoro'
 
 export default function PomodoroTimer() {
-  const [pomodoro] = React.useState(new Pomodoro(1, 2, 3))
+  const [pomodoro] = React.useState(new Pomodoro())
   const [time, setTime] = React.useState(pomodoro.etapa_atual())
   const [key, setKey] = React.useState(20)
   const [isPlaying, setIsPlaying] = React.useState(false)
 
+  React.useEffect(() => {
+    setKey((prevKey) => prevKey + 1)
+  }, [time])
+
   const handleUpdate = (remainingTime: number) => {
+    store.dispatch(addTempo(1))
     if (!remainingTime) {
       pomodoro.avanca_etapa()
       setTime(pomodoro.etapa_atual())
@@ -20,14 +25,9 @@ export default function PomodoroTimer() {
 
   const showTime = ({ remainingTime }: any) => {
     const minutes = Math.floor(remainingTime / 60)
-    const seconds = remainingTime % 60 === 0 ? '00' : remainingTime % 60
-
+    const seconds = (remainingTime % 60).toString().padStart(2, '0')
     return <Text style={styles.time}>{`${minutes}:${seconds}`}</Text>
   }
-
-  React.useEffect(() => {
-    setKey((prevKey) => prevKey + 1)
-  }, [time])
 
   return (
     <View style={styles.container}>

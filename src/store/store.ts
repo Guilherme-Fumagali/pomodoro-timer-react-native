@@ -1,18 +1,14 @@
 import { tarefa } from '../types'
 import { createSlice, configureStore, PayloadAction } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' 
 
-const tarefas: tarefa[] = [
-  {
-    id: 0,
-    nome: 'Trabalho de sociologia',
-    tempo: 880,
-  },
-  {
-    id: 1,
-    nome: 'Trabalho de não sei o que o que o que o que o que o que o que o que o que o que',
-    tempo: 990,
-  },
-]
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+}
+
+const tarefas: tarefa[] = []
 
 const tarefasSlice = createSlice({
   name: 'tarefas',
