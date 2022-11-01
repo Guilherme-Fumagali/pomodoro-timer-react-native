@@ -26,7 +26,8 @@ cd pomodoro-timer-react-native
 npm install
 npm start
 ```
-
+# Execução a partir de build de distribuição
+https://expo.dev/accounts/fumagali/projects/pomodoro-timer/builds/b40df7c9-63d8-47d2-a4a2-fa190995d96c
 
 # Limitações, bugs conhecidos e próximos passos
 Um problema que está acontecendo é que, quando a API está ativada, os dados estão sendo solicitados toda vez que o app é aberto.
