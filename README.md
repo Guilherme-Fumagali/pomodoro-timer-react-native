@@ -38,23 +38,14 @@ As principais limitações são:
 - Previsão de conclusão de todas as tarefas.
 Com isso, os próximos passos estão relacionados diretamente com as limitações do aplicativo.
 
-# Critérios mínimos
+# Funcionalidades e tecnologias
 
-### Consumir dados de alguma API
-Não achei muita utilidade para uma API nesta aplicação. Por isso, por padrão, essa função se encontra desativada. Para ativá-la é preciso mudar a constante "ACESSAR_API" no arquivo App.tsx para true. Essa API devolve um arquivo JSON com algumas informações, incluindo um "title", que no contexto é usado para adicionar tarefas com o nome definido a partir deste dado.
-
-### Utilizar [Redux](https://redux.js.org/basics/usage-with-react/) para gerenciamento de estado
-Foi usado o redux para armazenar e manipular as tarefas através dos reducers. 
+### [Redux](https://redux.js.org/basics/usage-with-react/) para gerenciamento de estado 
 
 ### Possibilidade de utilização Online/Offline com algum tipo de persistência de dados Offline;
 O estado armazenado no Redux persiste offline. Assim, tarefas criadas pelo usuário persistem, incluindo o tempo gasto nelas até o momento.
 
-### Utilizar de ao menos um componente reutilizável(genérico);
-O componente "Tarefas" é reutiliável.
+### Componentes reutilizáveis
 
-### [Clean Code](https://becode.com.br/clean-code/)
-
-## Diferenciais usados:
-- OOP;
-- TypeScript;
+### TypeScript orientado a objetos
 
